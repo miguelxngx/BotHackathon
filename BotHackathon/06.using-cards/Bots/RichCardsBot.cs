@@ -27,9 +27,9 @@ namespace Microsoft.BotBuilderSamples
                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    var reply = MessageFactory.Text("Welcome to CardBot."
-                        + " This bot will show you different types of Rich Cards."
-                        + " Please type anything to get started.");
+                    var reply = MessageFactory.Text("Welcome to NihilistBot."
+                        + " This bot will show you different types of Rich Cards and Text commands"
+                        + "Choose a card or input [flight from to where when]");
 
                     await turnContext.SendActivityAsync(reply, cancellationToken);
                 }

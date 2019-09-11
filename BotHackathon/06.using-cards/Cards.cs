@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System;
 using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 
@@ -142,9 +143,15 @@ namespace Microsoft.BotBuilderSamples
                                     "https://www.youtube.com/watch?v=1-xGerv5FOk&list=PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI&index=24",
                                     "https://www.youtube.com/watch?v=eH4F1Tdb040&list=PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI&index=88",
                                     "https://www.youtube.com/watch?v=y6120QOlsfU&list=PLFPg_IUxqnZNnACUGsfn50DySIOVSkiKI&index=159"}},
-        }
-        public static getCardFromState(int state){
 
+            {"Sad", new string[]{"https://www.youtube.com/watch?v=bo_efYhYU2A&list=PL5D7fjEEs5yflZzSZAhxfgQmN6C_6UJ1W",
+                                    "https://www.youtube.com/watch?v=zGRSjJC7Lek&list=PLv8jGqwQoxR8KJGT7ZuSleCCAZq5ZKuwN",
+                                    "https://www.youtube.com/watch?v=8ofCZObsnOo&list=PLgzTt0k8mXzHcKebL8d0uYHfawiARhQja",
+                                    "https://www.youtube.com/watch?v=7TWzV05kQ4w&list=PLkas6B2O0bmZ1XdWqAkAsiTYHE-rGLBB6",
+                                    "https://www.youtube.com/watch?v=5R1RGl4WQP8&list=PL6ykWMybidv6MVd92KXACvN9aI-0EtZBE"}}
+        };
+        public static VideoCard getCardFromState(string state){
+            return GetVideoCard(states[state][new Random().Next(states[state].Length)]);
         }
         public static VideoCard GetVideoCard(string url)
         {

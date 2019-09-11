@@ -66,60 +66,14 @@ namespace Microsoft.BotBuilderSamples
             var reply = MessageFactory.Attachment(attachments);
             
             // Decide which type of card(s) we are going to show the user
-            switch (((FoundChoice)stepContext.Result).Value)
-            {
-                case "Sad":
-                    // Display an Adaptive Card
-                    reply.Attachments.Add(Cards.CreateAdaptiveCardAttachment());
-                    break;
-                case "Animation Card":
-                    // Display an AnimationCard.
-                    reply.Attachments.Add(Cards.GetAnimationCard().ToAttachment());
-                    break;
-                case "Audio Card":
-                    // Display an AudioCard
-                    reply.Attachments.Add(Cards.GetAudioCard().ToAttachment());
-                    break;
-                case "Hero Card":
-                    // Display a HeroCard.
-                    reply.Attachments.Add(Cards.GetHeroCard().ToAttachment());
-                    break;
-                case "Receipt Card":
-                    // Display a ReceiptCard.
-                    reply.Attachments.Add(Cards.GetReceiptCard().ToAttachment());
-                    break;
-                case "Signin Card":
-                    // Display a SignInCard.
-                    reply.Attachments.Add(Cards.GetSigninCard().ToAttachment());
-                    break;
-                case "Thumbnail Card":
-                    // Display a ThumbnailCard.
-                    reply.Attachments.Add(Cards.GetThumbnailCard().ToAttachment());
-                    break;
-                case "Happy":
-                    // Display a VideoCard
-                    reply.Attachments.Add(Cards.GetVideoCard().ToAttachment());
-                    break;
-                default:
-                    // Display a carousel of all the rich card types.
-                    reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-                    reply.Attachments.Add(Cards.CreateAdaptiveCardAttachment());
-                    reply.Attachments.Add(Cards.GetAnimationCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetAudioCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetHeroCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetReceiptCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetSigninCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetThumbnailCard().ToAttachment());
-                    reply.Attachments.Add(Cards.GetVideoCard().ToAttachment());
-                    break;
-            }
+            reply.Attachments.Add(Cards.getCardFromState(((FoundChoice)stepContext.Result).Value).ToAttachment());
+
 
             // Send the card(s) to the user as an attachment to the activity
             await stepContext.Context.SendActivityAsync(reply, cancellationToken);
 
             // Give the user instructions about what to do next
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text("Type anything to see another card."), cancellationToken);
-
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Type \"card\" to see the options"), cancellationToken);
             return await stepContext.EndDialogAsync();
         }
 
